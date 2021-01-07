@@ -21,20 +21,25 @@ class GameViewController: UIViewController {
     let wassyoiSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "wassyoi")!.data)
     let effectSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "effect")!.data)
     
-    var timer: Timer!
-    var count = 5
+    var timer: Timer?
+    var counter = 2
     
     //タイマー作成
     func createTimer(){
-        let timer = Timer.scheduledTimer(timeInterval: 1.0,target: self,selector: #selector(self.startTimer),userInfo: nil,repeats: false)
-        timer.fire()
+        if timer == nil {
+            timer = Timer.scheduledTimer(
+                timeInterval: TimeInterval(1.0),
+                target: self,
+                selector: #selector(GameViewController.startTimer),
+                userInfo: nil,
+                repeats: true)
+        }
     }
-    
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    
-    func onClickSoundOnButton(sender: UIButton){
-        appDelegate.openingSoundPlayer.stop()
-    }
+
+    var array:[String] = ["冠","婚","葬","祭"]
+    let first = array.randomElement()
+    let second = array.randomElement()
+    let third = array.randomElement()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,15 +68,16 @@ class GameViewController: UIViewController {
     
     //1秒毎に呼び出される
     @objc func startTimer(){
-        for count in 5...0{
-            self.count -= 1
-            TimerLabel.text = String(count)
-        }
+        counter -= 1
+        TimerLabel.text = String(counter)
+        print("aiueo")
     }
     
+    //画面が切り替わるときに
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        //タイマーを停止する
+
+        //タイマーを停止
         if let workingTimer = timer{
             workingTimer.invalidate()
         }

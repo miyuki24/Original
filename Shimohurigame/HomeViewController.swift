@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
     @IBAction func StartButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
+        openingSoundPlayer.stop()
     }
     
     @IBAction func TitleButton(_ sender: Any) {
