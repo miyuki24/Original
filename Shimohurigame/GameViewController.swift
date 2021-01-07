@@ -30,6 +30,12 @@ class GameViewController: UIViewController {
         timer.fire()
     }
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    func onClickSoundOnButton(sender: UIButton){
+        appDelegate.openingSoundPlayer.stop()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
