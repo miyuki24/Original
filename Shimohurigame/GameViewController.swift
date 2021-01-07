@@ -63,6 +63,7 @@ class GameViewController: UIViewController {
     }
     var array: [GameData] = [.kan, .kon, .sou, .sai]
     
+    
     //タイマー作成
     func createTimer(){
         if timer == nil {
@@ -75,16 +76,20 @@ class GameViewController: UIViewController {
         }
     }
     
+    //タイマーが終わったら
     func createfinishTimer() {
         finishTimer = Timer.scheduledTimer(timeInterval: TimeInterval(5.0), target: self, selector: #selector(GameViewController.finishdTimer), userInfo: nil, repeats: true)
     }
     
-    
+    var first: GameData!
+    var second: GameData!
+    var third: GameData!
     
     func question() {
-        let first = array.randomElement()
-        let second = array.randomElement()
-        let third = array.randomElement()
+        first = array.randomElement()
+        second = array.randomElement()
+        third = array.randomElement()
+        
         FirstLabel.text = first?.question
         SecondLabel.text = second?.question
         ThirdLabel.text = third?.question
@@ -97,26 +102,49 @@ class GameViewController: UIViewController {
         question()
     }
     
+    var answerCount = 1
+    func check(myAnswer: String) {
+        if answerCount == 1 {
+            if myAnswer == first.answer {
+                score += 1
+            }
+        } else if answerCount == 2 {
+            if myAnswer == second.answer {
+                score += 1
+            }
+        } else if answerCount == 3 {
+            if myAnswer == third.answer {
+                score += 1
+            }
+        }
+        answerCount += 1
+    }
+    
     @IBAction func YeahButton(_ sender: Any) {
         yeahSoundPlayer.currentTime = 0
         yeahSoundPlayer.play()
         myAnswer.text = "イェイ"
-        //もしquestionが冠・婚だったら
-        //スコアを1あげる・リターン
-        //else if ベストスコアならfinalへ
-        //else notupdataへ
+        
+        answerCount += 1
+        check(myAnswer: myAnswer.text!)
     }
     
     @IBAction func WooButton(_ sender: Any) {
         wooSoundPlayer.currentTime = 0
         wooSoundPlayer.play()
         myAnswer.text = "ウー"
+        
+        answerCount += 1
+        check(myAnswer: myAnswer.text!)
     }
     
     @IBAction func WasshoiButton(_ sender: Any) {
         wassyoiSoundPlayer.currentTime = 0
         wassyoiSoundPlayer.play()
         myAnswer.text = "わっしょい"
+        
+        answerCount += 1
+        check(myAnswer: myAnswer.text!)
     }
     
     @IBAction func StopButton(_ sender: Any) {
@@ -134,14 +162,7 @@ class GameViewController: UIViewController {
     
     //タイマーが終わったら
     @objc func finishdTimer(){
-        //最高記録だったら
-        if score = highScore {
-            let finalViewController = self.storyboard?.instantiateViewController(withIdentifier: "final")
-            self.present(finalViewController!, animated: false, completion: nil)
-        } else {
-            let notupdateViewController = self.storyboard?.instantiateViewController(withIdentifier: "notupdate")
-            self.present(notupdateViewController!, animated: false, completion: nil)
-        }
+        
     }
     
     //画面が切り替わるときに
@@ -162,5 +183,13 @@ class GameViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    //最高記録だったら
+    if score = highScore {
+        let finalViewController = self.storyboard?.instantiateViewController(withIdentifier: "final")
+        self.present(finalViewController!, animated: false, completion: nil)
+    } else {
+        let notupdateViewController = self.storyboard?.instantiateViewController(withIdentifier: "notupdate")
+        self.present(notupdateViewController!, animated: false, completion: nil)
+    }
 
 }
