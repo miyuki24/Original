@@ -25,6 +25,12 @@ class GameViewController: UIViewController {
     let wassyoiSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "wassyoi")!.data)
     let effectSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "effect")!.data)
     
+    //冠婚葬祭
+    let kanSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "kan")!.data)
+    let konSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "kon")!.data)
+    let souSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "sou")!.data)
+    let saiSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "sai")!.data)
+    
     var timer: Timer?
     var counter = 2
     
@@ -56,7 +62,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         createTimer()
-        
+        question()
     }
     
     @IBAction func YeahButton(_ sender: Any) {
