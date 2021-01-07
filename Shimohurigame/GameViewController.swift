@@ -11,9 +11,13 @@ import AVFoundation
 
 class GameViewController: UIViewController {
 
-    @IBOutlet weak var GameLabel: UILabel!
+    
+    @IBOutlet weak var FirstLabel: UILabel!
+    @IBOutlet weak var SecondLabel: UILabel!
+    @IBOutlet weak var ThirdLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var TimerLabel: UILabel!
+    @IBOutlet weak var myAnswer: UILabel!
     
     //サウンドファイルを読み込んでプレイヤーを作る
     let yeahSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "yeah")!.data)
@@ -36,29 +40,41 @@ class GameViewController: UIViewController {
         }
     }
 
-    var array:[String] = ["冠","婚","葬","祭"]
-    let first = array.randomElement()
-    let second = array.randomElement()
-    let third = array.randomElement()
+    var array = ["冠","婚","葬","祭"]
+    
+    func question(){
+        let first = array.randomElement()
+        let second = array.randomElement()
+        let third = array.randomElement()
+        
+        FirstLabel.text = first
+        SecondLabel.text = second
+        ThirdLabel.text = third
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createTimer()
         
     }
     
     @IBAction func YeahButton(_ sender: Any) {
         yeahSoundPlayer.currentTime = 0
         yeahSoundPlayer.play()
+        myAnswer.text = "イェイ"
     }
     
     @IBAction func WooButton(_ sender: Any) {
         wooSoundPlayer.currentTime = 0
         wooSoundPlayer.play()
+        myAnswer.text = "ウー"
     }
     
     @IBAction func WasshoiButton(_ sender: Any) {
         wassyoiSoundPlayer.currentTime = 0
         wassyoiSoundPlayer.play()
+        myAnswer.text = "わっしょい"
     }
     
     @IBAction func StopButton(_ sender: Any) {
@@ -68,9 +84,10 @@ class GameViewController: UIViewController {
     
     //1秒毎に呼び出される
     @objc func startTimer(){
-        counter -= 1
-        TimerLabel.text = String(counter)
-        print("aiueo")
+        while counter > 0 {
+            counter -= 1
+            TimerLabel.text = String(counter)
+        }
     }
     
     //画面が切り替わるときに

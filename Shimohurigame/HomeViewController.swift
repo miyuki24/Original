@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 
 class HomeViewController: UIViewController {
-
     
     @IBOutlet weak var DisplayHighScoreLabel: UILabel!
     @IBOutlet weak var HighScoreLabel: UILabel!
