@@ -37,8 +37,9 @@ class GameViewController: UIViewController {
     var finishCounter = 5
     var score = 0
     let userDefaults:UserDefaults = UserDefaults.standard
+    var highScore: Int = 0
     
-    //データをまとめた定数
+    //ゲームデータ
     enum GameData {
         case kan
         case kon
@@ -100,6 +101,7 @@ class GameViewController: UIViewController {
         
         createTimer()
         question()
+        createfinishTimer()
     }
     
     var answerCount = 1
@@ -156,13 +158,30 @@ class GameViewController: UIViewController {
     @objc func startTimer(){
         while counter > 0 {
             counter -= 1
-            TimerLabel.text = String(counter)
+            TimerLabel.text = "\(counter)"
         }
+    }
+    
+    func createScore() {
+        //ハイスコアかどうか確認する
+        var highScore = userDefaults.integer(forKey: "HIGH")
+        if score > highScore {
+            highScore = score
+            userDefaults.set(highScore, forKey: "HIGH")
+            userDefaults.synchronize()
+            highScore = self.highScore
+        }
+        
     }
     
     //タイマーが終わったら
     @objc func finishdTimer(){
-        
+        createScore()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let homeViewController: HomeViewController = segue.destination as! HomeViewController
+        homeViewController.DisplayHighScore = self.highScore
     }
     
     //画面が切り替わるときに
@@ -183,13 +202,6 @@ class GameViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    //最高記録だったら
-    if score = highScore {
-        let finalViewController = self.storyboard?.instantiateViewController(withIdentifier: "final")
-        self.present(finalViewController!, animated: false, completion: nil)
-    } else {
-        let notupdateViewController = self.storyboard?.instantiateViewController(withIdentifier: "notupdate")
-        self.present(notupdateViewController!, animated: false, completion: nil)
-    }
+    
 
 }

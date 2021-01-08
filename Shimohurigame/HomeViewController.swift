@@ -11,11 +11,12 @@ import AVFoundation
 
 class HomeViewController: UIViewController {
     
-    @IBOutlet weak var DisplayHighScoreLabel: UILabel!
     @IBOutlet weak var HighScoreLabel: UILabel!
     
     let openingSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "Opening")!.data)
     let effectSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "effect")!.data)
+    
+    var DisplayHighScore: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         openingSoundPlayer.currentTime = 0
         openingSoundPlayer.play()
+        HighScoreLabel.text = "ハイスコア:\(DisplayHighScore)"
     }
     
     @IBAction func StartButton(_ sender: Any) {

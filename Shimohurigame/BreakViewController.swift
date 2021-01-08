@@ -23,18 +23,15 @@ class BreakViewController: UIViewController {
     @IBAction func RestartButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
-        self.dismiss(animated: false, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     //諦めるボタン
     @IBAction func GiveupButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
-        let vc = UIViewController()
-        vc.modalPresentationStyle = .fullScreen
-        let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "home")
-        self.present(homeViewController!, animated: false, completion: nil)
-        self.present(vc, animated: false, completion: nil)
+        //戻る
+        navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
     }
     
     /*
@@ -49,7 +46,6 @@ class BreakViewController: UIViewController {
 
 }
 
-//次の画面に行く時に音楽を止める
 //BGMをつける
-//フルスクリーンで任意の階層に遷移
-//
+//ブレイクに遷移する前にタイマーを止める
+//再開ボタンで再びスタート
