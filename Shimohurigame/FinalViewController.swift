@@ -11,6 +11,8 @@ import AVFoundation
 
 class FinalViewController: UIViewController {
 
+    var HighScore = 0
+    
     @IBOutlet weak var ScoreLabel: UILabel!
     
     let effectSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "effect")!.data)
@@ -19,6 +21,7 @@ class FinalViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        ScoreLabel.text = "\(HighScore)"
     }
     
     @IBAction func RetryButton(_ sender: Any) {
@@ -29,6 +32,7 @@ class FinalViewController: UIViewController {
     @IBAction func BackHomeButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
+        navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
     }
     
     /*

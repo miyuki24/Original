@@ -37,7 +37,8 @@ class GameViewController: UIViewController {
     var finishCounter = 5
     var score = 0
     let userDefaults:UserDefaults = UserDefaults.standard
-    var highScore: Int = 0
+    var highScore2: Int = 0
+    var answerCount = 0
     
     //ゲームデータ
     enum GameData {
@@ -79,7 +80,7 @@ class GameViewController: UIViewController {
     
     //タイマーが終わったら
     func createfinishTimer() {
-        finishTimer = Timer.scheduledTimer(timeInterval: TimeInterval(5.0), target: self, selector: #selector(GameViewController.finishdTimer), userInfo: nil, repeats: true)
+        finishTimer = Timer.scheduledTimer(timeInterval: TimeInterval(5.0), target: self, selector: #selector(GameViewController.finishdTimer), userInfo: nil, repeats: false)
     }
     
     var first: GameData!
@@ -102,7 +103,9 @@ class GameViewController: UIViewController {
         createTimer()
         question()
         createfinishTimer()
-        scoreLabel.text = "\(score)"
+        
+        TimerLabel.text = "5"
+        
     }
     
     
@@ -140,30 +143,36 @@ class GameViewController: UIViewController {
         effectSoundPlayer.play()
     }
     
-    var answerCount = 0
     func check(myAnswer: String) {
         if answerCount == 1 {
+            
             if myAnswer == first.answer {
                 score += 1
                 print("1問正解")
+                scoreLabel.text = "\(score)"
             }
         } else if answerCount == 2 {
             if myAnswer == second.answer {
                 score += 1
                 print("2問正解")
+                scoreLabel.text = "\(score)"
             }
         } else if answerCount == 3 {
             if myAnswer == third.answer {
                 score += 1
                 print("3問正解")
+                scoreLabel.text = "\(score)"
             }
+        } else if answerCount == 4 {
+            answerCount = 1
+            print("4問以上")
+            return
         }
-        answerCount += 1
     }
     
     //1秒毎に呼び出される
     @objc func startTimer(){
-        while counter > 0 {
+        if counter > 0 {
             counter -= 1
             TimerLabel.text = "\(counter)"
         }
@@ -176,9 +185,13 @@ class GameViewController: UIViewController {
             highScore = score
             userDefaults.set(highScore, forKey: "HIGH")
             userDefaults.synchronize()
-            highScore = self.highScore
+            highScore = highScore2
+            let finalViewController = self.storyboard?.instantiateViewController(withIdentifier: "final") as! FinalViewController
+            self.present(finalViewController, animated: true, completion: nil)
+        } else {
+            let notupdateViewController = self.storyboard?.instantiateViewController(withIdentifier: "notupdate") as! NotupdateViewController
+            self.present(notupdateViewController, animated: true, completion: nil)
         }
-        
     }
     
     //タイマーが終わったら
@@ -188,7 +201,11 @@ class GameViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let homeViewController: HomeViewController = segue.destination as! HomeViewController
-        homeViewController.DisplayHighScore = self.highScore
+        homeViewController.DisplayHighScore = highScore2
+        let finalViewController: FinalViewController = segue.destination as! FinalViewController
+        finalViewController.HighScore = highScore2
+        let notupdateViewController: NotupdateViewController = segue.destination as! NotupdateViewController
+        notupdateViewController.Score = score
     }
     
     //画面が切り替わるときに

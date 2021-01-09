@@ -13,12 +13,14 @@ class NotupdateViewController: UIViewController {
 
     @IBOutlet weak var ScoreLabel: UILabel!
     
+    var Score = 0
+    
     let effectSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "effect")!.data)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        ScoreLabel.text = "\(Score)"
     }
     
 
@@ -30,6 +32,7 @@ class NotupdateViewController: UIViewController {
     @IBAction func BackHomeButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
+        navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
     }
     
     /*
