@@ -102,25 +102,10 @@ class GameViewController: UIViewController {
         createTimer()
         question()
         createfinishTimer()
+        scoreLabel.text = "\(score)"
     }
     
-    var answerCount = 1
-    func check(myAnswer: String) {
-        if answerCount == 1 {
-            if myAnswer == first.answer {
-                score += 1
-            }
-        } else if answerCount == 2 {
-            if myAnswer == second.answer {
-                score += 1
-            }
-        } else if answerCount == 3 {
-            if myAnswer == third.answer {
-                score += 1
-            }
-        }
-        answerCount += 1
-    }
+    
     
     @IBAction func YeahButton(_ sender: Any) {
         yeahSoundPlayer.currentTime = 0
@@ -128,6 +113,7 @@ class GameViewController: UIViewController {
         myAnswer.text = "イェイ"
         
         answerCount += 1
+        //myAnswerはイェイ
         check(myAnswer: myAnswer.text!)
     }
     
@@ -152,6 +138,27 @@ class GameViewController: UIViewController {
     @IBAction func StopButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
+    }
+    
+    var answerCount = 0
+    func check(myAnswer: String) {
+        if answerCount == 1 {
+            if myAnswer == first.answer {
+                score += 1
+                print("1問正解")
+            }
+        } else if answerCount == 2 {
+            if myAnswer == second.answer {
+                score += 1
+                print("2問正解")
+            }
+        } else if answerCount == 3 {
+            if myAnswer == third.answer {
+                score += 1
+                print("3問正解")
+            }
+        }
+        answerCount += 1
     }
     
     //1秒毎に呼び出される
