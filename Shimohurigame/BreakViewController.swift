@@ -23,7 +23,7 @@ class BreakViewController: UIViewController {
     @IBAction func RestartButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToViewController(navigationController!.viewControllers[1], animated: true)
     }
     
     //諦めるボタン

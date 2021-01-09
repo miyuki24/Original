@@ -27,6 +27,7 @@ class FinalViewController: UIViewController {
     @IBAction func RetryButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
+        navigationController?.popToViewController(navigationController!.viewControllers[1], animated: true)
     }
     
     @IBAction func BackHomeButton(_ sender: Any) {

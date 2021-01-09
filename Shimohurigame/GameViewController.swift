@@ -201,7 +201,6 @@ class GameViewController: UIViewController {
         super.viewWillAppear(animated)
         
         createTimer()
-        TimerLabel.text = "\(counter)"
         question()
         createfinishTimer()
     }
@@ -213,10 +212,12 @@ class GameViewController: UIViewController {
         //タイマーを停止
         if let workingTimer = timer{
             workingTimer.invalidate()
+            timer = nil
         }
         
         if let workingFinishTimer = finishTimer {
             workingFinishTimer.invalidate()
+            finishTimer = nil
         }
     }
     /*
