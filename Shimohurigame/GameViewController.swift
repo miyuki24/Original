@@ -100,12 +100,6 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        createTimer()
-        question()
-        createfinishTimer()
-        
-        TimerLabel.text = "5"
-        
     }
     
     
@@ -206,7 +200,10 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
+        createTimer()
+        TimerLabel.text = "\(counter)"
+        question()
+        createfinishTimer()
     }
     
     //画面が切り替わるときに
