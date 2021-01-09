@@ -21,7 +21,7 @@ class FinalViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        ScoreLabel.text = "\(HighScore)"
+        ScoreLabel.text = "\(HighScore)点"
     }
     
     @IBAction func RetryButton(_ sender: Any) {

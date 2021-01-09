@@ -20,13 +20,13 @@ class NotupdateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ScoreLabel.text = "\(Score)"
+        ScoreLabel.text = "\(Score)点"
     }
-    
 
     @IBAction func RetryButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func BackHomeButton(_ sender: Any) {

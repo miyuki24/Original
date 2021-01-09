@@ -47,5 +47,4 @@ class BreakViewController: UIViewController {
 }
 
 //BGMをつける
-//ブレイクに遷移する前にタイマーを止める
 //再開ボタンで再びスタート

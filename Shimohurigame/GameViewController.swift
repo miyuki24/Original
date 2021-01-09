@@ -187,9 +187,13 @@ class GameViewController: UIViewController {
             userDefaults.synchronize()
             highScore = highScore2
             let finalViewController = self.storyboard?.instantiateViewController(withIdentifier: "final") as! FinalViewController
+            finalViewController.HighScore = highScore2
+            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "home") as! HomeViewController
+            homeViewController.HighScore = highScore2
             self.present(finalViewController, animated: true, completion: nil)
         } else {
             let notupdateViewController = self.storyboard?.instantiateViewController(withIdentifier: "notupdate") as! NotupdateViewController
+            notupdateViewController.Score = score
             self.present(notupdateViewController, animated: true, completion: nil)
         }
     }
@@ -199,13 +203,10 @@ class GameViewController: UIViewController {
         createScore()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let homeViewController: HomeViewController = segue.destination as! HomeViewController
-        homeViewController.DisplayHighScore = highScore2
-        let finalViewController: FinalViewController = segue.destination as! FinalViewController
-        finalViewController.HighScore = highScore2
-        let notupdateViewController: NotupdateViewController = segue.destination as! NotupdateViewController
-        notupdateViewController.Score = score
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
     }
     
     //画面が切り替わるときに
@@ -215,6 +216,10 @@ class GameViewController: UIViewController {
         //タイマーを停止
         if let workingTimer = timer{
             workingTimer.invalidate()
+        }
+        
+        if let workingFinishTimer = finishTimer {
+            workingFinishTimer.invalidate()
         }
     }
     /*
