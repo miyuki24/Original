@@ -37,6 +37,7 @@ class GameViewController: UIViewController {
     var score = 0
     let userDefaults:UserDefaults = UserDefaults.standard
     var answerCount = 0
+    var stopCount: Int?
     
     //ゲームデータ
     enum GameData {
@@ -128,6 +129,7 @@ class GameViewController: UIViewController {
     @IBAction func StopButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
+        stopCount = 1
     }
     
     func check(myAnswer: String) {
@@ -190,11 +192,17 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        answerCount = 0
-        score = 0
-        scoreLabel.text = "\(score)"
-        createTimer()
-        question()
+        if stopCount == 1 {
+            createTimer()
+            question()
+            stopCount = 0
+        } else {
+            answerCount = 0
+            score = 0
+            scoreLabel.text = "\(score)"
+            createTimer()
+            question()
+        }
     }
     
     //画面が切り替わるときに
