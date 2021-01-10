@@ -20,8 +20,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        openingSoundPlayer.currentTime = 0
-        openingSoundPlayer.play()
+        
         
     }
     
@@ -39,6 +38,8 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        openingSoundPlayer.currentTime = 0
+        openingSoundPlayer.play()
         let highScore = UserDefaults.standard.integer(forKey: "HIGH")
         HighScoreLabel.text = "ハイスコア:\(highScore)点"
     }

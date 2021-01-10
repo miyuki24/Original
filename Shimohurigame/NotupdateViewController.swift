@@ -13,28 +13,26 @@ class NotupdateViewController: UIViewController {
 
     @IBOutlet weak var ScoreLabel: UILabel!
     
-    var Score = 0
+    let score = UserDefaults.standard.integer(forKey: "SCORE")
     
     let effectSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "effect")!.data)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ScoreLabel.text = "\(Score)点"
+        ScoreLabel.text = "\(score)点"
     }
 
     @IBAction func RetryButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
-        let gameViewController = self.storyboard?.instantiateViewController(withIdentifier: "game") as! GameViewController
-        self.present(gameViewController, animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func BackHomeButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
-        let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "home") as! HomeViewController
-        self.present(homeViewController, animated: true, completion: nil)
+        navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
     }
     
     /*

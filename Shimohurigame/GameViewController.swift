@@ -136,7 +136,6 @@ class GameViewController: UIViewController {
             
             if myAnswer == first.answer {
                 score += 1
-                print("1問正解")
                 scoreLabel.text = "\(score)"
             } else {
                 createScore()
@@ -144,7 +143,6 @@ class GameViewController: UIViewController {
         } else if answerCount == 2 {
             if myAnswer == second.answer {
                 score += 1
-                print("2問正解")
                 scoreLabel.text = "\(score)"
             } else {
                 createScore()
@@ -152,9 +150,7 @@ class GameViewController: UIViewController {
         } else if answerCount == 3 {
             if myAnswer == third.answer {
                 score += 1
-                print("3問正解")
                 question()
-                timer = nil
                 counter = 6
                 createTimer()
                 scoreLabel.text = "\(score)"
@@ -163,7 +159,6 @@ class GameViewController: UIViewController {
             }
         } else if answerCount == 4 {
             answerCount = 1
-            print("4問以上")
             return
         }
     }
@@ -187,6 +182,8 @@ class GameViewController: UIViewController {
             userDefaults.synchronize()
             self.performSegue(withIdentifier: "toHighScore", sender: nil)
         } else {
+            userDefaults.set(score, forKey: "SCORE")
+            userDefaults.synchronize()
             self.performSegue(withIdentifier: "toScore", sender: nil)
         }
     }

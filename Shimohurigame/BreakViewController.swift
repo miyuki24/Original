@@ -46,4 +46,3 @@ class BreakViewController: UIViewController {
 }
 
 //BGMをつける
-//再開ボタンで再びスタート
