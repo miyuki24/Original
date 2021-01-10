@@ -34,7 +34,6 @@ class GameViewController: UIViewController {
     var timer: Timer?
     var counter = 5
     var finishTimer: Timer?
-    var finishCounter = 5
     var score = 0
     let userDefaults:UserDefaults = UserDefaults.standard
     var answerCount = 0
@@ -191,6 +190,9 @@ class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        answerCount = 0
+        score = 0
+        scoreLabel.text = "\(score)"
         createTimer()
         question()
     }
