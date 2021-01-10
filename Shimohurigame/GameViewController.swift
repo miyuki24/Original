@@ -138,18 +138,28 @@ class GameViewController: UIViewController {
                 score += 1
                 print("1問正解")
                 scoreLabel.text = "\(score)"
+            } else {
+                createScore()
             }
         } else if answerCount == 2 {
             if myAnswer == second.answer {
                 score += 1
                 print("2問正解")
                 scoreLabel.text = "\(score)"
+            } else {
+                createScore()
             }
         } else if answerCount == 3 {
             if myAnswer == third.answer {
                 score += 1
                 print("3問正解")
+                question()
+                timer = nil
+                counter = 6
+                createTimer()
                 scoreLabel.text = "\(score)"
+            } else {
+                createScore()
             }
         } else if answerCount == 4 {
             answerCount = 1
@@ -175,15 +185,9 @@ class GameViewController: UIViewController {
             highScore = score
             userDefaults.set(highScore, forKey: "HIGH")
             userDefaults.synchronize()
-            let finalViewController = self.storyboard?.instantiateViewController(withIdentifier: "final") as! FinalViewController
-            finalViewController.HighScore = highScore
-            let homeViewController = self.presentingViewController as! HomeViewController
-            homeViewController.HighScore = highScore
-            self.present(finalViewController, animated: true, completion: nil)
+            self.performSegue(withIdentifier: "toHighScore", sender: nil)
         } else {
-            let notupdateViewController = self.storyboard?.instantiateViewController(withIdentifier: "notupdate") as! NotupdateViewController
-            notupdateViewController.Score = score
-            self.present(notupdateViewController, animated: true, completion: nil)
+            self.performSegue(withIdentifier: "toScore", sender: nil)
         }
     }
     

@@ -167,6 +167,8 @@
                         <outlet property="TimerLabel" destination="O5D-YN-XKA" id="YDm-4G-Fek"/>
                         <outlet property="myAnswer" destination="Vn1-mB-07O" id="81t-rX-4Dx"/>
                         <outlet property="scoreLabel" destination="xmE-ij-xOr" id="zi4-AE-6mI"/>
+                        <segue destination="1nb-cL-dZD" kind="show" identifier="toHighScore" id="9cR-Zd-XVL"/>
+                        <segue destination="Jnx-FK-7dl" kind="show" identifier="toScore" id="z3p-b4-ONz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="abK-pc-SnQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -223,6 +225,7 @@
                         <color key="backgroundColor" red="0.90196078430000004" green="1" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="mwv-sO-Wyo"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ExN-Mc-aRX"/>
                     <connections>
                         <outlet property="ScoreLabel" destination="qnI-WK-YYX" id="UQG-ep-u6W"/>
                     </connections>
@@ -343,6 +346,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FrY-G0-qJy"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Sfl-fo-fJP"/>
                     <connections>
                         <outlet property="ScoreLabel" destination="Sqp-ca-LcC" id="Cd0-VP-zxV"/>
                     </connections>

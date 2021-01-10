@@ -16,15 +16,13 @@ class HomeViewController: UIViewController {
     let openingSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "Opening")!.data)
     let effectSoundPlayer = try! AVAudioPlayer(data: NSDataAsset(name: "effect")!.data)
     
-    var HighScore: Int = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         openingSoundPlayer.currentTime = 0
         openingSoundPlayer.play()
-        HighScoreLabel.text = "ハイスコア:\(HighScore)点"
+        
     }
     
     @IBAction func StartButton(_ sender: Any) {
@@ -38,8 +36,11 @@ class HomeViewController: UIViewController {
         openingSoundPlayer.play()
     }
     
-    func highScorePrint() {
-        print("\(HighScore)")
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let highScore = UserDefaults.standard.integer(forKey: "HIGH")
+        HighScoreLabel.text = "ハイスコア:\(highScore)点"
     }
     /*
     // MARK: - Navigation

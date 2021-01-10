@@ -30,7 +30,6 @@ class BreakViewController: UIViewController {
     @IBAction func GiveupButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
-        //戻る
         navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
     }
     
