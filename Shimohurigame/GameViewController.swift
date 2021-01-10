@@ -37,7 +37,6 @@ class GameViewController: UIViewController {
     var finishCounter = 5
     var score = 0
     let userDefaults:UserDefaults = UserDefaults.standard
-    var highScore2: Int = 0
     var answerCount = 0
     
     //ゲームデータ
@@ -76,11 +75,6 @@ class GameViewController: UIViewController {
                 userInfo: nil,
                 repeats: true)
         }
-    }
-    
-    //タイマーが終わったら
-    func createfinishTimer() {
-        finishTimer = Timer.scheduledTimer(timeInterval: TimeInterval(5.0), target: self, selector: #selector(GameViewController.finishdTimer), userInfo: nil, repeats: false)
     }
     
     var first: GameData!
@@ -169,6 +163,8 @@ class GameViewController: UIViewController {
         if counter > 0 {
             counter -= 1
             TimerLabel.text = "\(counter)"
+        } else if counter == 0 {
+            createScore()
         }
     }
     
@@ -179,11 +175,10 @@ class GameViewController: UIViewController {
             highScore = score
             userDefaults.set(highScore, forKey: "HIGH")
             userDefaults.synchronize()
-            highScore = highScore2
             let finalViewController = self.storyboard?.instantiateViewController(withIdentifier: "final") as! FinalViewController
-            finalViewController.HighScore = highScore2
-            let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "home") as! HomeViewController
-            homeViewController.HighScore = highScore2
+            finalViewController.HighScore = highScore
+            let homeViewController = self.presentingViewController as! HomeViewController
+            homeViewController.HighScore = highScore
             self.present(finalViewController, animated: true, completion: nil)
         } else {
             let notupdateViewController = self.storyboard?.instantiateViewController(withIdentifier: "notupdate") as! NotupdateViewController
@@ -192,17 +187,11 @@ class GameViewController: UIViewController {
         }
     }
     
-    //タイマーが終わったら
-    @objc func finishdTimer(){
-        createScore()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         createTimer()
         question()
-        createfinishTimer()
     }
     
     //画面が切り替わるときに

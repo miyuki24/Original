@@ -37,6 +37,10 @@ class HomeViewController: UIViewController {
         openingSoundPlayer.currentTime = 0
         openingSoundPlayer.play()
     }
+    
+    func highScorePrint() {
+        print("\(HighScore)")
+    }
     /*
     // MARK: - Navigation
 

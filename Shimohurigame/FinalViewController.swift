@@ -27,13 +27,15 @@ class FinalViewController: UIViewController {
     @IBAction func RetryButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
-        navigationController?.popToViewController(navigationController!.viewControllers[1], animated: true)
+        let gameViewController = self.storyboard?.instantiateViewController(withIdentifier: "game") as! GameViewController
+        self.present(gameViewController, animated: true, completion: nil)
     }
     
     @IBAction func BackHomeButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
-        navigationController?.popToViewController(navigationController!.viewControllers[0], animated: true)
+        let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "home") as! HomeViewController
+        self.present(homeViewController, animated: true, completion: nil)
     }
     
     /*
