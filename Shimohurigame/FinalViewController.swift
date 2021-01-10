@@ -26,6 +26,8 @@ class FinalViewController: UIViewController {
     @IBAction func RetryButton(_ sender: Any) {
         effectSoundPlayer.currentTime = 0
         effectSoundPlayer.play()
+        let gameViewController = self.storyboard?.instantiateViewController(withIdentifier: "game") as! GameViewController
+        gameViewController.counter = 6
         navigationController?.popViewController(animated: true)
     }
     
